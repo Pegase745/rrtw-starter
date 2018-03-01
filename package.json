@@ -34,8 +34,7 @@
         "webpack": "^3.11.0",
         "webpack-dev-middleware": "^2.0.6",
         "webpack-hot-middleware": "^2.21.1",
-        "webpack-simple-progress-plugin": "^0.0.4",
-        "yargs": "^11.0.0"
+        "webpack-simple-progress-plugin": "^0.0.4"
     },
     "dependencies": {
         "chalk": "^2.3.1",
@@ -52,6 +51,7 @@
         "redux-devtools-extension": "^2.13.2",
         "redux-immutable": "^4.0.0",
         "redux-logger": "^3.0.6",
-        "redux-thunk": "^2.2.0"
+        "redux-thunk": "^2.2.0",
+        "yargs": "^11.0.0"
     }
 }
