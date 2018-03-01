@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./src",
+        "types": ["node"],
+        "module": "es6",
+        "moduleResolution": "node",
+        "declaration": false,
+        "noImplicitAny": false,
+        "pretty": true,
+        "removeComments": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
+        "target": "es5",
+        "sourceMap": true,
+        "jsx": "react",
+        "allowJs": true,
+        "outDir": "./dist"
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "src/**/*.spec.*"]
+}
