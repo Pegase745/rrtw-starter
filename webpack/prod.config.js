@@ -1,8 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
+    mode: 'production',
+
     cache: true,
 
     target: 'web',
@@ -46,22 +49,6 @@ module.exports = {
     },
 
     plugins: [
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: JSON.stringify('production'),
-            },
-        }),
-
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            minChunks: module =>
-                module.context && module.context.indexOf('node_modules') !== -1,
-        }),
-
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'manifest',
-        }),
-
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../src/index.html'),
         }),
@@ -71,16 +58,17 @@ module.exports = {
             debug: false,
         }),
 
-        new webpack.optimize.UglifyJsPlugin({
-            beautify: false,
+        new UglifyJsPlugin({
+            uglifyOptions: {
+                warnings: false,
+                output: {
+                  comments: false,
+                  beautify: false,
+                },
+                ie8: false,
+                safari10: false,
+            },
             sourceMap: true,
-            compress: {
-              warnings: false,
-              screw_ie8: true,
-            },
-            output: {
-              comments: false,
-            },
         }),
     ],
 };

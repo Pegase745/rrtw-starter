@@ -1,14 +1,22 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const SimpleProgressPlugin = require('webpack-simple-progress-plugin');
+const { CheckerPlugin } = require('awesome-typescript-loader')
 
 module.exports = {
+    mode: 'development',
+
     cache: true,
 
     target: 'web',
 
     devtool: 'eval-source-map',
+
+    stats: {
+        colors: true,
+        reasons: true,
+        errorDetails: true
+    },
 
     context: path.resolve(__dirname, '..'),
 
@@ -42,36 +50,26 @@ module.exports = {
                     },
                     {
                         loader: 'awesome-typescript-loader',
-                        options: {
-                            transpileOnly: true,
-                            useTranspileModule: false,
-                            sourceMap: false,
-                        },
                     },
                 ],
             },
         ],
     },
 
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendors",
+                    chunks: "all"
+                }
+            }
+        },
+    },
+
     plugins: [
-        new SimpleProgressPlugin(),
-
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: JSON.stringify('development'),
-            },
-        }),
-
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            minChunks: module =>
-                module.context && module.context.indexOf('node_modules') !== -1,
-        }),
-
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'manifest',
-        }),
-
+        new CheckerPlugin(),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../src/index.html'),
         }),
@@ -79,7 +77,5 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin({
             multiStep: false, // https://github.com/jantimon/html-webpack-plugin/issues/533
         }),
-
-        new webpack.NamedModulesPlugin(),
     ],
 };
