@@ -6,7 +6,7 @@ WIP boilerplate working with
 * Redux@3
 * react-router@4
 * react-router-redux@5
-* Webpack@3
+* Webpack@4
 * Typescript@2.7
 
 # Usage
