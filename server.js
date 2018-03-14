@@ -10,15 +10,19 @@ if (!argv.production) {
     const webpackDevMiddleware = require('webpack-dev-middleware');
     const webpackHotMiddleware = require('webpack-hot-middleware');
 
-    const webpackConfigPath = `./webpack/${argv.production ? 'prod' : 'dev'}.config.js`;
+    const webpackConfigPath = `./webpack/${
+        argv.production ? 'prod' : 'dev'
+    }.config.js`;
     const webpackConfig = require(webpackConfigPath);
 
     const compiler = webpack(webpackConfig);
 
-    app.use(webpackDevMiddleware(compiler, {
-        noInfo: true,
-        publicPath: webpackConfig.output.publicPath,
-    }));
+    app.use(
+        webpackDevMiddleware(compiler, {
+            noInfo: true,
+            publicPath: webpackConfig.output.publicPath,
+        })
+    );
 
     app.use(webpackHotMiddleware(compiler));
 } else {
@@ -27,15 +31,17 @@ if (!argv.production) {
     app.use(express.static(clientAssetsDir));
 }
 
-app.listen(8080, (err) => {
+app.listen(8080, err => {
     if (err) {
         return console.log(chalk.red.bold(err));
     }
 
-    console.log(chalk.green.bold(
-        '\n\n' +
-        '##################################\n' +
-        '### App listening on port 8080 ###\n' +
-        '##################################'
-    ));
+    console.log(
+        chalk.green.bold(
+            '\n\n' +
+                '##################################\n' +
+                '### App listening on port 8080 ###\n' +
+                '##################################'
+        )
+    );
 });

@@ -62,8 +62,8 @@ module.exports = {
             uglifyOptions: {
                 warnings: false,
                 output: {
-                  comments: false,
-                  beautify: false,
+                    comments: false,
+                    beautify: false,
                 },
                 ie8: false,
                 safari10: false,

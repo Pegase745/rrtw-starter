@@ -13,9 +13,9 @@ const history = configureStore.history;
 
 render(
     <AppContainer>
-        <Root store={ store } history={ history }/>
+        <Root store={store} history={history} />
     </AppContainer>,
-    document.getElementById('root'),
+    document.getElementById('root')
 );
 
 if (module.hot) {
@@ -24,9 +24,9 @@ if (module.hot) {
 
         render(
             <AppContainer>
-                <Root store={ store } history={ history }/>
+                <Root store={store} history={history} />
             </AppContainer>,
-            document.getElementById('root'),
+            document.getElementById('root')
         );
     });
 }

@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CheckerPlugin } = require('awesome-typescript-loader')
+const { CheckerPlugin } = require('awesome-typescript-loader');
 
 module.exports = {
     mode: 'development',
@@ -15,7 +15,7 @@ module.exports = {
     stats: {
         colors: true,
         reasons: true,
-        errorDetails: true
+        errorDetails: true,
     },
 
     context: path.resolve(__dirname, '..'),
@@ -61,10 +61,10 @@ module.exports = {
             cacheGroups: {
                 commons: {
                     test: /[\\/]node_modules[\\/]/,
-                    name: "vendors",
-                    chunks: "all"
-                }
-            }
+                    name: 'vendors',
+                    chunks: 'all',
+                },
+            },
         },
     },
 

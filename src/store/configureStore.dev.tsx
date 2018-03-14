@@ -22,7 +22,7 @@ const stateTransformer = state => {
 const middlewares = [
     routerMiddleware(history),
     thunkMiddleware,
-    createLogger({stateTransformer}),
+    createLogger({ stateTransformer }),
 ];
 
 export default function configureStore(initialState) {
