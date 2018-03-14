@@ -4,78 +4,78 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CheckerPlugin } = require('awesome-typescript-loader');
 
 module.exports = {
-    mode: 'development',
+  mode: 'development',
 
-    cache: true,
+  cache: true,
 
-    target: 'web',
+  target: 'web',
 
-    devtool: 'eval-source-map',
+  devtool: 'eval-source-map',
 
-    stats: {
-        colors: true,
-        reasons: true,
-        errorDetails: true,
-    },
+  stats: {
+    colors: true,
+    reasons: true,
+    errorDetails: true,
+  },
 
-    context: path.resolve(__dirname, '..'),
+  context: path.resolve(__dirname, '..'),
 
-    entry: {
-        client: [
-            'react-hot-loader/patch',
-            'webpack-hot-middleware/client',
-            './src/client.tsx',
-        ],
-    },
-
-    output: {
-        path: path.resolve(__dirname, '../dist'),
-        filename: '[name].js',
-        publicPath: '/',
-    },
-
-    resolve: {
-        extensions: ['.json', '.ts', '.tsx', '.js'],
-        modules: ['src', 'node_modules'],
-    },
-
-    module: {
-        rules: [
-            {
-                test: /\.tsx?$/,
-                include: path.resolve(__dirname, '../src'),
-                use: [
-                    {
-                        loader: 'react-hot-loader/webpack',
-                    },
-                    {
-                        loader: 'awesome-typescript-loader',
-                    },
-                ],
-            },
-        ],
-    },
-
-    optimization: {
-        splitChunks: {
-            cacheGroups: {
-                commons: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: 'vendors',
-                    chunks: 'all',
-                },
-            },
-        },
-    },
-
-    plugins: [
-        new CheckerPlugin(),
-        new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../src/index.html'),
-        }),
-
-        new webpack.HotModuleReplacementPlugin({
-            multiStep: false, // https://github.com/jantimon/html-webpack-plugin/issues/533
-        }),
+  entry: {
+    client: [
+      'react-hot-loader/patch',
+      'webpack-hot-middleware/client',
+      './src/index.tsx',
     ],
+  },
+
+  output: {
+    path: path.resolve(__dirname, '../dist'),
+    filename: '[name].js',
+    publicPath: '/',
+  },
+
+  resolve: {
+    extensions: ['.json', '.ts', '.tsx', '.js'],
+    modules: ['src', 'node_modules'],
+  },
+
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        include: path.resolve(__dirname, '../src'),
+        use: [
+          {
+            loader: 'react-hot-loader/webpack',
+          },
+          {
+            loader: 'awesome-typescript-loader',
+          },
+        ],
+      },
+    ],
+  },
+
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
+    },
+  },
+
+  plugins: [
+    new CheckerPlugin(),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, '../src/index.html'),
+    }),
+
+    new webpack.HotModuleReplacementPlugin({
+      multiStep: false, // https://github.com/jantimon/html-webpack-plugin/issues/533
+    }),
+  ],
 };
