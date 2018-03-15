@@ -3,7 +3,7 @@
 WIP boilerplate working with
 
 * React@16
-* Redux@3
+* Redux@3 with Rematch/core@0.5.2
 * react-router@4
 * react-router-redux@5
 * Webpack@4
