@@ -1,5 +1,7 @@
-import * as React from 'react';
+import React, { Component } from 'react';
 
-const Home = () => <span>Hello world</span>;
-
-export default Home;
+export default class Home extends Component {
+  public render() {
+    return <span>Hello world</span>;
+  }
+}
