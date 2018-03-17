@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CheckerPlugin } = require('awesome-typescript-loader');
 
 module.exports = {
   mode: 'development',
@@ -56,20 +55,7 @@ module.exports = {
     ],
   },
 
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        commons: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all',
-        },
-      },
-    },
-  },
-
   plugins: [
-    new CheckerPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '../src/index.html'),
     }),

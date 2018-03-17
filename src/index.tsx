@@ -4,12 +4,13 @@ import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
 
 import Root from './Root';
-import configureStore, { history } from './store';
+import configureStore from './store';
 
 // tslint:disable-next-line:no-any
 declare var module: { hot: any };
 
-const store = configureStore();
+const store = configureStore.default();
+const history = configureStore.history;
 
 const renderWithHotReload = () => {
   render(

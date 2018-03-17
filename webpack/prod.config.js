@@ -38,36 +38,35 @@ module.exports = {
         use: [
           {
             loader: 'awesome-typescript-loader',
-            options: {
-              transpileOnly: true,
-              useTranspileModule: false,
-              sourceMap: true,
-            },
           },
         ],
       },
     ],
   },
 
+  // Save for when ready to MEP
+  // optimization: {
+  //   splitChunks: {
+  //     cacheGroups: {
+  //       commons: {
+  //         test: /[\\/]node_modules[\\/]/,
+  //         name: 'vendors',
+  //         chunks: 'all',
+  //       },
+  //     },
+  //   },
+  // },
+
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '../src/index.html'),
     }),
 
-    new webpack.LoaderOptionsPlugin({
-      minimize: true,
-      debug: false,
-    }),
-
     new UglifyJsPlugin({
       uglifyOptions: {
-        warnings: false,
         output: {
-          comments: false,
           beautify: false,
         },
-        ie8: false,
-        safari10: false,
       },
       sourceMap: true,
     }),

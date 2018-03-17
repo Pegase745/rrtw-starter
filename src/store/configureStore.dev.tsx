@@ -5,7 +5,7 @@ import { routerMiddleware, routerReducer } from 'react-router-redux';
 import { createLogger } from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 
-import models from './models';
+import models from '../models';
 
 // tslint:disable-next-line:no-any
 declare var module: { hot: any };
@@ -14,14 +14,14 @@ declare var require: any;
 
 export const history = createHistory();
 
-const stateTransformer = state => {
-  return Iterable.isIterable(state) ? state.toJS() : state;
-};
-
 const middlewares = [
   routerMiddleware(history),
   thunkMiddleware,
-  createLogger({ stateTransformer }),
+  createLogger({
+    stateTransformer: state => {
+      return Iterable.isIterable(state) ? state.toJS() : state;
+    },
+  }),
 ];
 
 const configureStore = (initialState = {}) => {
@@ -36,18 +36,16 @@ const configureStore = (initialState = {}) => {
     },
   });
 
-  if (process.env.NODE_ENV === 'development') {
-    if (module.hot) {
-      // Hot module replacement for reducers
-      module.hot.accept('./models', () => {
-        Object.keys(models).forEach(modelKey => {
-          model({
-            name: modelKey,
-            ...models[modelKey],
-          });
+  if (module.hot) {
+    // Hot module replacement for reducers
+    module.hot.accept('../models', () => {
+      Object.keys(models).forEach(modelKey => {
+        model({
+          name: modelKey,
+          ...models[modelKey],
         });
       });
-    }
+    });
   }
 
   return store;
