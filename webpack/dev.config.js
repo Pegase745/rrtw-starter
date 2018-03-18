@@ -20,11 +20,7 @@ module.exports = {
   context: path.resolve(__dirname, '..'),
 
   entry: {
-    client: [
-      'react-hot-loader/patch',
-      'webpack-hot-middleware/client',
-      './src/index.tsx',
-    ],
+    client: ['webpack-hot-middleware/client', './src/index.tsx'],
   },
 
   output: {
@@ -44,9 +40,6 @@ module.exports = {
         test: /\.tsx?$/,
         include: path.resolve(__dirname, '../src'),
         use: [
-          {
-            loader: 'react-hot-loader/webpack',
-          },
           {
             loader: 'awesome-typescript-loader',
           },

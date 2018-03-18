@@ -6,28 +6,14 @@ import { Provider } from 'react-redux';
 import Root from './Root';
 import configureStore from './store';
 
-// tslint:disable-next-line:no-any
-declare var module: { hot: any };
-
 const store = configureStore.default();
 const history = configureStore.history;
 
-const renderWithHotReload = () => {
-  render(
-    <AppContainer>
-      <Provider store={store}>
-        <Root history={history} />
-      </Provider>
-    </AppContainer>,
-    document.getElementById('root'),
-  );
-};
-
-renderWithHotReload();
-
-if (module.hot) {
-  module.hot.accept('./Root', () => {
-    const RootContainer = require('./Root').default;
-    renderWithHotReload();
-  });
-}
+render(
+  <AppContainer>
+    <Provider store={store}>
+      <Root history={history} />
+    </Provider>
+  </AppContainer>,
+  document.getElementById('root'),
+);

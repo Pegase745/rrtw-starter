@@ -1,12 +1,11 @@
 import * as React from 'react';
+import { hot } from 'react-hot-loader';
 import { ConnectedRouter } from 'react-router-redux';
 
 import routes from './routes';
 
 const Root = ({ history }) => (
-  <ConnectedRouter history={history}>
-    {routes}
-  </ConnectedRouter>
+  <ConnectedRouter history={history}>{routes}</ConnectedRouter>
 );
 
-export default Root;
+export default hot(module)(Root);

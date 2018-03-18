@@ -9,8 +9,6 @@ import models from '../models';
 
 // tslint:disable-next-line:no-any
 declare var module: { hot: any };
-// tslint:disable-next-line:no-any
-declare var require: any;
 
 export const history = createHistory();
 
@@ -18,6 +16,7 @@ const middlewares = [
   routerMiddleware(history),
   thunkMiddleware,
   createLogger({
+    collapsed: true,
     stateTransformer: state => {
       return Iterable.isIterable(state) ? state.toJS() : state;
     },

@@ -6,36 +6,18 @@ const argv = require('yargs').argv;
 const app = express();
 
 if (!argv.production) {
-  const webpack = require('webpack');
-  const webpackDevMiddleware = require('webpack-dev-middleware');
-  const webpackHotMiddleware = require('webpack-hot-middleware');
-
-  const webpackConfigPath = `./webpack/${
-    argv.production ? 'prod' : 'dev'
-  }.config.js`;
-  const webpackConfig = require(webpackConfigPath);
-
-  const compiler = webpack(webpackConfig);
-
-  app.use(
-    webpackDevMiddleware(compiler, {
-      noInfo: true,
-      publicPath: webpackConfig.output.publicPath,
-    })
-  );
-
-  app.use(webpackHotMiddleware(compiler));
-} else {
-  const clientAssetsDir = path.join(__dirname, './dist');
-
-  app.get('*.js', (req, res, next) => {
-    req.url = req.url + '.gz';
-    res.set('Content-Encoding', 'gzip');
-    next();
-  });
-
-  app.use(express.static(clientAssetsDir));
+  setupWebpackDevelopmentServer(app);
 }
+
+const clientAssetsDir = path.join(__dirname, './dist');
+
+app.get('*.js', (req, res, next) => {
+  req.url = req.url + '.gz';
+  res.set('Content-Encoding', 'gzip');
+  next();
+});
+
+app.use(express.static(clientAssetsDir));
 
 app.listen(8080, err => {
   if (err) {
@@ -51,3 +33,26 @@ app.listen(8080, err => {
     )
   );
 });
+
+function setupWebpackDevelopmentServer(app) {
+  const webpack = require('webpack');
+  const webpackConfig = require('./webpack/dev.config.js');
+
+  const compiler = webpack(webpackConfig);
+
+  const webpackDevMiddleware = require('webpack-dev-middleware')(compiler, {
+    noInfo: true,
+    publicPath: webpackConfig.output.publicPath,
+    stats: { colors: true },
+    poll: true,
+    quiet: false,
+    reload: true,
+  });
+
+  const webpackHotMiddleware = require('webpack-hot-middleware')(compiler, {
+    reload: true,
+  });
+
+  app.use(webpackDevMiddleware);
+  app.use(webpackHotMiddleware);
+}
