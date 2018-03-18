@@ -5,6 +5,29 @@ const argv = require('yargs').argv;
 
 const app = express();
 
+function setupWebpackDevelopmentServer(app) {
+  const webpack = require('webpack');
+  const webpackConfig = require('./webpack/dev.config.js');
+
+  const compiler = webpack(webpackConfig);
+
+  const webpackDevMiddleware = require('webpack-dev-middleware')(compiler, {
+    noInfo: true,
+    publicPath: webpackConfig.output.publicPath,
+    stats: { colors: true },
+    poll: true,
+    quiet: false,
+    reload: true,
+  });
+
+  const webpackHotMiddleware = require('webpack-hot-middleware')(compiler, {
+    reload: true,
+  });
+
+  app.use(webpackDevMiddleware);
+  app.use(webpackHotMiddleware);
+}
+
 if (!argv.production) {
   setupWebpackDevelopmentServer(app);
 }
@@ -33,26 +56,3 @@ app.listen(8080, err => {
     )
   );
 });
-
-function setupWebpackDevelopmentServer(app) {
-  const webpack = require('webpack');
-  const webpackConfig = require('./webpack/dev.config.js');
-
-  const compiler = webpack(webpackConfig);
-
-  const webpackDevMiddleware = require('webpack-dev-middleware')(compiler, {
-    noInfo: true,
-    publicPath: webpackConfig.output.publicPath,
-    stats: { colors: true },
-    poll: true,
-    quiet: false,
-    reload: true,
-  });
-
-  const webpackHotMiddleware = require('webpack-hot-middleware')(compiler, {
-    reload: true,
-  });
-
-  app.use(webpackDevMiddleware);
-  app.use(webpackHotMiddleware);
-}
