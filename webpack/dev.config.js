@@ -20,7 +20,7 @@ module.exports = {
   context: path.resolve(__dirname, '..'),
 
   entry: {
-    client: ['webpack-hot-middleware/client', './src/index.tsx'],
+    client: ['webpack-hot-middleware/client', './src/client.tsx'],
   },
 
   output: {

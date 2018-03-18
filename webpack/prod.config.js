@@ -16,7 +16,7 @@ module.exports = {
   context: path.resolve(__dirname, '..'),
 
   entry: {
-    client: ['./src/index.tsx'],
+    client: ['./src/client.tsx'],
   },
 
   output: {

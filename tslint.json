@@ -11,6 +11,7 @@
             "single",
             "jsx-double"
         ],
+        "no-implicit-dependencies": false,
         "semicolon": [true, "always"],
         "no-submodule-imports": false,
         "jsx-boolean-value": [true, "never"],
