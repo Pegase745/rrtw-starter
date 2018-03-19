@@ -10,7 +10,7 @@
         "start:prod": "yarn run build && node dist/server.js",
         "build": "yarn run clean && yarn run build:server && yarn run build:prod",
         "build:server": "cross-env webpack --progress --colors --config webpack/server.config.js",
-        "build:prod": "cross-env webpack --progress --colors --config webpack/prod.config.js",
+        "build:prod": "cross-env webpack --progress --colors --mode production --config webpack/client.config.js",
         "lint": "tslint --project tsconfig.json"
     },
     "license": "MIT",

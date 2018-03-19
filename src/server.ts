@@ -9,9 +9,12 @@ const app = express();
 if (process.env.NODE_ENV !== 'production') {
   // Apply only in development mode
   const webpack = require('webpack');
-  const webpackConfig = require('../webpack/dev.config.js');
+  const webpackConfig = require('../webpack/client.config.js');
 
-  const compiler = webpack(webpackConfig);
+  const compiler = webpack({
+    mode: 'development',
+    ...webpackConfig,
+  });
 
   const webpackDevMiddleware = require('webpack-dev-middleware')(compiler, {
     headers: {
