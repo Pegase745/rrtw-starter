@@ -6,7 +6,7 @@ import { argv } from 'yargs';
 
 const app = express();
 
-if (!argv.production) {
+if (process.env.NODE_ENV !== 'production') {
   // Apply only in development mode
   const webpack = require('webpack');
   const webpackConfig = require('../webpack/dev.config.js');
@@ -33,9 +33,7 @@ if (!argv.production) {
   app.use(webpackHotMiddleware);
 } else {
   // Apply only in production mode
-  const clientAssetsDir = path.join(__dirname, './dist');
-
-  app.use(express.static(clientAssetsDir));
+  app.use(express.static('./dist/public'));
 
   app.get('*.js', (req, res, next) => {
     req.url = req.url + '.gz';

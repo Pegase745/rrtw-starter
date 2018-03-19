@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -20,7 +21,7 @@ module.exports = {
   },
 
   output: {
-    path: path.resolve(__dirname, '../dist'),
+    path: path.resolve(__dirname, '../dist', 'public'),
     filename: '[name].[hash].js',
     publicPath: '/',
   },
@@ -58,6 +59,10 @@ module.exports = {
   // },
 
   plugins: [
+    new CopyWebpackPlugin([
+      { from: path.resolve(__dirname, '../src/favicon.svg') },
+    ]),
+
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, '../src/index.html'),
     }),
